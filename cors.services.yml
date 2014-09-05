@@ -1,5 +1,11 @@
 services:
-  cors.options:
-    class: Drupal\cors\CorsOptionsRequest
+  cors_options:
+    class: Drupal\cors\CORSOptionsRequest
     tags:
       - { name: event_subscriber }
+  authentication.cors_auth_options:
+    class: Drupal\cors\Authentication\Provider\CORSAuth
+    arguments: ['@config.factory', '@user.auth', '@flood', '@entity.manager']
+    tags:
+      - { name: authentication_provider, priority: 200 }
+
